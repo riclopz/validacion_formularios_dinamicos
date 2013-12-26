@@ -1,0 +1,38 @@
+<html>
+    <head>
+    	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+   		<title>Tutorial IguannaWeb</title>
+    	<script language="javascript" type="text/javascript" src="js/jquery-1.10.2.js"></script>
+        <script>
+		$(document).ready(function(){
+				$('#cargar').click(function(){
+					$.ajax({
+						  url: "ajax.html",
+						  success:function(data){
+							  $('#contenido').html(data);
+							  }
+						})
+				});
+				
+				$('#contenido').on('submit','#formulario',function(event){
+					var error = 0;
+					$('.requerido').each(function(i, elem){
+						if($(elem).val() == ''){
+							$(elem).css({'border':'1px solid red'});
+							error++;
+							}
+						});
+					if(error > 0){
+						event.preventDefault();
+						$('#aviso').html('Debe rellenar los campos requeridos <br />');
+						}
+					});
+			});
+		</script>
+    </head>
+<body>
+    <div id="contenido">
+   		<button id="cargar">Cargar formulario</button>
+    </div>
+</body>
+</html>
